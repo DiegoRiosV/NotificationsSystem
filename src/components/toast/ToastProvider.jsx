@@ -3,6 +3,7 @@ import ToastContext from "../../context/ToastContext";
 import Toast from "./Toast";
 
 const DEFAULT_DURATION = 3000;
+const CLOSE_ANIMATION_DURATION = 300; // debe coincidir con la transición CSS (.3s)
 
 function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
@@ -13,18 +14,30 @@ function ToastProvider({ children }) {
     setToasts((prev) => prev.filter((toast) => toast.id !== id));
   }, []);
 
+  const startCloseToast = useCallback((id) => {
+    setToasts((prev) =>
+      prev.map((toast) =>
+        toast.id === id ? { ...toast, isClosing: true } : toast
+      )
+    );
+
+    setTimeout(() => {
+      removeToast(id);
+    }, CLOSE_ANIMATION_DURATION);
+  }, [removeToast]);
+
   const showToast = useCallback(({ type, message, duration = DEFAULT_DURATION }) => {
     idCounterRef.current += 1;
     const id = `${Date.now()}-${idCounterRef.current}`;
 
-    const newToast = { id, type, message, duration };
+    const newToast = { id, type, message, duration, isClosing: false };
 
     setToasts((prev) => [newToast, ...prev]);
 
     setTimeout(() => {
-      removeToast(id);
+      startCloseToast(id);
     }, duration);
-  }, [removeToast]);
+  }, [startCloseToast]);
 
   const value = { showToast, removeToast };
 
@@ -38,7 +51,8 @@ function ToastProvider({ children }) {
           id={toast.id}
           type={toast.type}
           message={toast.message}
-          onClose={removeToast}
+          isClosing={toast.isClosing}
+          onClose={startCloseToast}
         />
       ))}
     </ToastContext.Provider>
