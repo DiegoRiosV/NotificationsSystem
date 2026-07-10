@@ -39,39 +39,36 @@ export default function ToastTester() {
   };
 
   return (
-    <div style={{ padding: "16px", border: "1px solid #ccc", maxWidth: "400px" }}>
-      <h3>Toast Tester</h3>
+    <div className="app-container">
+      <div className="card">
+        <h1>Toast Demo</h1>
 
-      <label htmlFor="toast-message">Mensaje:</label>
-      <br />
-      <textarea
-        id="toast-message"
-        value={message}
-        onChange={handleMessageChange}
-        rows={3}
-        style={{ width: "100%" }}
-      />
-      <div>
-        {message.length} / {MAX_CHARACTERS} caracteres
-      </div>
+        <label htmlFor="toast-message">Mensaje</label>
+        <textarea
+          id="toast-message"
+          className="toast-input"
+          value={message}
+          onChange={handleMessageChange}
+          rows={3}
+          placeholder="Escribe el mensaje del toast..."
+        />
 
-      <div style={{ marginTop: "8px" }}>
-        Duración actual: {duration} segundos
-      </div>
+        <div className="meta-row">
+          <span className="char-count">{message.length} / {MAX_CHARACTERS} caracteres</span>
+          <span className="duration">Duración actual: {duration} segundos</span>
+        </div>
 
-      <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
-        <button type="button" onClick={() => handleSend("error")}>
-          Error
-        </button>
-        <button type="button" onClick={() => handleSend("success")}>
-          Exitoso
-        </button>
-        <button type="button" onClick={handleIncreaseDuration}>
-          +1 segundo
-        </button>
-        <button type="button" onClick={handleDecreaseDuration}>
-          -1 segundo
-        </button>
+        <div className="controls">
+          <div className="duration-controls">
+            <button className="btn btn-secondary" type="button" onClick={handleDecreaseDuration}>-1 segundo</button>
+            <button className="btn btn-secondary" type="button" onClick={handleIncreaseDuration}>+1 segundo</button>
+          </div>
+
+          <div className="action-controls">
+            <button className="btn btn-error" type="button" onClick={() => handleSend("error")}>✕ Error</button>
+            <button className="btn btn-success" type="button" onClick={() => handleSend("success")}>✓ Exitoso</button>
+          </div>
+        </div>
       </div>
     </div>
   );

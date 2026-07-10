@@ -3,7 +3,7 @@ import ToastContext from "../../context/ToastContext";
 import ToastContainer from "./ToastContainer";
 
 const DEFAULT_DURATION = 3000;
-const CLOSE_ANIMATION_DURATION = 300; // debe coincidir con la transición CSS (.3s)
+const CLOSE_ANIMATION_DURATION = 300;
 
 function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);

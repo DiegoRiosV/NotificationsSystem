@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import ToastProvider from "./components/Toast/ToastProvider";
 import ToastTester from "./components/ToastTester";
+import './App.css'
 
 function App() {
   return (
