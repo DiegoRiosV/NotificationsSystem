@@ -2,7 +2,9 @@
     display: flex;
     align-items: center;
     gap: 10px;
-
+    padding: 10px 16px;
+    border-radius: 10px;
+    box-shadow: 0 4px 14px rgba(16, 24, 40, 0.08);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -49,7 +51,7 @@
 
 /* Si se quiere limitar el ancho de cada toast cuando el contenedor es full-width */
 .toast-container > .toast {
-    width: 100%;
+    width: fit-content;
     max-width: 540px;
 }
 .toast.success {
