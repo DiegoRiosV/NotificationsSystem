@@ -1,6 +1,6 @@
 import { useState, useRef, useCallback } from "react";
 import ToastContext from "../../context/ToastContext";
-import Toast from "./Toast";
+import ToastContainer from "./ToastContainer";
 
 const DEFAULT_DURATION = 3000;
 const CLOSE_ANIMATION_DURATION = 300; // debe coincidir con la transición CSS (.3s)
@@ -45,16 +45,7 @@ function ToastProvider({ children }) {
     <ToastContext.Provider value={value}>
       {children}
 
-      {toasts.map((toast) => (
-        <Toast
-          key={toast.id}
-          id={toast.id}
-          type={toast.type}
-          message={toast.message}
-          isClosing={toast.isClosing}
-          onClose={startCloseToast}
-        />
-      ))}
+      <ToastContainer toasts={toasts} onClose={startCloseToast} />
     </ToastContext.Provider>
   );
 }
