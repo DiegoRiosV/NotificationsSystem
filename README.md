@@ -1,16 +1,15 @@
-# React + Vite
+# NotificationsSystem
+Sistema de notificaciones Toast reutilizable en React puro, sin librerías externas, con animaciones CSS y múltiples toasts simultáneos.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# React Toast Notifications
 
-Currently, two official plugins are available:
+Sistema de notificaciones tipo Toast construido con React + Vite, sin dependencias externas de animación ni UI. Soporta múltiples notificaciones simultáneas, duración configurable por toast, cierre manual y animaciones de entrada/salida hechas con CSS puro.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Características
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- 🔔 Notificaciones tipo Toast (success / error)
+- 🧩 Arquitectura basada en Context API (`ToastProvider` + hook `useToast`)
+- ⏱️ Duración personalizable por notificación (mínimo 3 segundos)
+- ✖️ Cierre manual con animación de salida
+- 📚 Soporte para múltiples toasts apilados, sin librerías externas
+- 🎨 Animaciones CSS puras (sin Framer Motion ni React Transition Group)
