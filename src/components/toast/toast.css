@@ -31,19 +31,45 @@
 
 /* Animación cuando desaparece */
 .toast-closing {
-
     opacity: 0;
-    transform: translateY(-20px);
-
+    transform: translateY(20px); 
 }
 
-/*Contenedor para los Toasts*/
-.toast-container { 
-    position: fixed; 
-    top:20px; 
-    left:50%; 
-    transform:translateX(-50%); 
-    display:flex; 
-    flex-direction:column; 
-    gap:12px; 
+/*Contenedor para los Toasts: ahora en flujo del documento debajo del contenido */
+.toast-container {
+    position: static;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    gap: 12px;
+    margin-top: 20px; 
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Si se quiere limitar el ancho de cada toast cuando el contenedor es full-width */
+.toast-container > .toast {
+    width: 100%;
+    max-width: 540px;
+}
+.toast.success {
+    border-left: 4px solid #10b981;
+    background: rgba(16, 185, 129, 0.06);
+}
+
+.toast.error {
+    border-left: 4px solid #ff4d4d;
+    background: rgba(255, 77, 77, 0.06);
+}
+
+.toast-icon {
+    font-weight: 700;
+}
+
+.toast.success .toast-icon {
+    color: #10b981;
+}
+
+.toast.error .toast-icon {
+    color: #ff4d4d;
 }
