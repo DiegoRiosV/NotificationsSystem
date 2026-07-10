@@ -7,8 +7,6 @@ const DEFAULT_DURATION = 3000;
 function ToastProvider({ children }) {
   const [toasts, setToasts] = useState([]);
 
-  // Contador para garantizar IDs únicos incluso si dos showToast()
-  // se disparan en el mismo milisegundo (Date.now() solo no lo garantiza).
   const idCounterRef = useRef(0);
 
   const removeToast = useCallback((id) => {
@@ -21,7 +19,6 @@ function ToastProvider({ children }) {
 
     const newToast = { id, type, message, duration };
 
-    // El nuevo toast se coloca al inicio para que aparezca arriba.
     setToasts((prev) => [newToast, ...prev]);
 
     setTimeout(() => {

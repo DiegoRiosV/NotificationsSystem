@@ -2,12 +2,13 @@ import { useState } from "react";
 import { useToast } from "../hooks/useToast";
 
 const MAX_CHARACTERS = 50;
+const MIN_DURATION = 3;
 
 export default function ToastTester() {
   const { showToast } = useToast();
 
   const [message, setMessage] = useState("");
-  const [duration, setDuration] = useState(3);
+  const [duration, setDuration] = useState(MIN_DURATION);
 
   const handleMessageChange = (e) => {
     const value = e.target.value;
@@ -20,6 +21,10 @@ export default function ToastTester() {
     setDuration((prev) => prev + 1);
   };
 
+  const handleDecreaseDuration = () => {
+    setDuration((prev) => Math.max(MIN_DURATION, prev - 1));
+  };
+
   const handleSend = (type) => {
     if (message.trim() === "") {
       console.log("El mensaje no puede estar vacío");
@@ -29,6 +34,7 @@ export default function ToastTester() {
     showToast({
       type,
       message,
+      duration: duration * 1000,
     });
   };
 
@@ -50,7 +56,7 @@ export default function ToastTester() {
       </div>
 
       <div style={{ marginTop: "8px" }}>
-        Duración: {duration} segundos
+        Duración actual: {duration} segundos
       </div>
 
       <div style={{ marginTop: "12px", display: "flex", gap: "8px" }}>
@@ -61,7 +67,10 @@ export default function ToastTester() {
           Exitoso
         </button>
         <button type="button" onClick={handleIncreaseDuration}>
-          +1 segundo duración
+          +1 segundo
+        </button>
+        <button type="button" onClick={handleDecreaseDuration}>
+          -1 segundo
         </button>
       </div>
     </div>
