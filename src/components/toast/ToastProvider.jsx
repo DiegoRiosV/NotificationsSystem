@@ -5,22 +5,29 @@ import Toast from "./Toast";
 const DEFAULT_DURATION = 3000;
 
 function ToastProvider({ children }) {
-  const [toast, setToast] = useState(null);
+  const [toasts, setToasts] = useState([]);
 
- const timeoutRef = useRef(null);
+  // Contador para garantizar IDs únicos incluso si dos showToast()
+  // se disparan en el mismo milisegundo (Date.now() solo no lo garantiza).
+  const idCounterRef = useRef(0);
+
+  const removeToast = useCallback((id) => {
+    setToasts((prev) => prev.filter((toast) => toast.id !== id));
+  }, []);
 
   const showToast = useCallback(({ type, message, duration = DEFAULT_DURATION }) => {
-   if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
-    }
+    idCounterRef.current += 1;
+    const id = `${Date.now()}-${idCounterRef.current}`;
 
-    setToast({ type, message, duration });
+    const newToast = { id, type, message, duration };
 
-    timeoutRef.current = setTimeout(() => {
-      setToast(null);
-      timeoutRef.current = null;
+    // El nuevo toast se coloca al inicio para que aparezca arriba.
+    setToasts((prev) => [newToast, ...prev]);
+
+    setTimeout(() => {
+      removeToast(id);
     }, duration);
-  }, []);
+  }, [removeToast]);
 
   const value = { showToast };
 
@@ -28,12 +35,13 @@ function ToastProvider({ children }) {
     <ToastContext.Provider value={value}>
       {children}
 
-      {toast && (
+      {toasts.map((toast) => (
         <Toast
+          key={toast.id}
           type={toast.type}
           message={toast.message}
         />
-      )}
+      ))}
     </ToastContext.Provider>
   );
 }
