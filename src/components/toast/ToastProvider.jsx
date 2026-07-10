@@ -26,7 +26,7 @@ function ToastProvider({ children }) {
     }, duration);
   }, [removeToast]);
 
-  const value = { showToast };
+  const value = { showToast, removeToast };
 
   return (
     <ToastContext.Provider value={value}>
@@ -35,8 +35,10 @@ function ToastProvider({ children }) {
       {toasts.map((toast) => (
         <Toast
           key={toast.id}
+          id={toast.id}
           type={toast.type}
           message={toast.message}
+          onClose={removeToast}
         />
       ))}
     </ToastContext.Provider>
